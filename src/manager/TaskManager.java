@@ -14,8 +14,6 @@ public interface TaskManager {
 
     Task getTaskById(int id);
 
-    HistoryManager getHistoryManager();
-
     Epic getEpicById(int id);
 
     SubTask getSubTaskById(int id);

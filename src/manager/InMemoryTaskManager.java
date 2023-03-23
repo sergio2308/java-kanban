@@ -3,34 +3,31 @@ import task.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class InMemoryTaskManager implements TaskManager {
 
     public HistoryManager historyManager = Managers.getDefaultHistory();
     protected int nextId = 0;
-    public HashMap<Integer, Task> tasks = new HashMap<>();
-    public HashMap<Integer, SubTask> subTasks = new HashMap<>();
-    public HashMap<Integer, Epic> epics = new HashMap<>();
+    private Map<Integer, Task> tasks = new HashMap<>();
+    private Map<Integer, SubTask> subTasks = new HashMap<>();
+    private Map<Integer, Epic> epics = new HashMap<>();
 
 
     @Override
-    public HashMap<Integer, Task> getTasks() {
+    public Map<Integer, Task> getTasks() {
         return tasks;
     }
+
     @Override
-    public HashMap<Integer, Epic> getEpics() {
+    public Map<Integer, Epic> getEpics() {
         return epics;
     }
 
     @Override
-    public HashMap<Integer, SubTask> getSubTasks() {
+    public Map<Integer, SubTask> getSubTasks() {
         return subTasks;
-    }
-
-    @Override
-    public HistoryManager getHistoryManager() {
-        return historyManager;
     }
 
     @Override
@@ -40,6 +37,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeEpics(int id) {
         epics.clear();
+        subTasks.clear();
     }
     @Override
     public void removeSubTasks(int id) {
