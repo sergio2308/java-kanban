@@ -1,8 +1,7 @@
 package manager;
 import task.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public interface TaskManager {
 
@@ -11,6 +10,8 @@ public interface TaskManager {
     void removeEpics(int id);
 
     void removeSubTasks(int id);
+
+    List<Task> getHistory();
 
     Task getTaskById(int id);
 
@@ -26,9 +27,9 @@ public interface TaskManager {
 
     void updateTask(Task task);
 
-    void updateSubTask(SubTask subTask);
+    //void updateSubTask(SubTask subTask);
 
-    void updateEpicStatus(Epic epic);
+    //void updateEpicStatus(Epic epic);
 
     void removeTaskById(int id);
 
@@ -38,9 +39,9 @@ public interface TaskManager {
 
     void getEpicSubs(int id);
 
-    Map<Integer, Task> getTasks();
+    List<Task> getTasks();
 
-    Map<Integer, Epic> getEpics();
+    List<Task> getEpics();
 
-    Map<Integer, SubTask> getSubTasks();
+    List<Task> getSubTasks();
 }

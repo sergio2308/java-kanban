@@ -15,15 +15,16 @@ public class InMemoryHistoryManager implements HistoryManager {
         public Node tail;
 
         private void linkLast(Task task) {
-            final Node l = tail;
-            final Node newNode = new Node(l, task, null);
-            tail = newNode;
-            if (l == null)
-                head = newNode;
-            else
-                l.next = newNode;
+            if (task != null) {
+                final Node current = tail;
+                final Node newNode = new Node(current, task, null);
+                tail = newNode;
+                if (head == null)
+                    head = newNode;
+                else
+                    current.next = newNode;
+            }
         }
-
         private List<Task> getTasks() {
             List<Task> tasks = new ArrayList<>();
             Node current = head;
@@ -40,13 +41,13 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (node != null) {
                 if (node.equals(head)) {
                     head = node.next;
-                    if (node.next != null) {
-                        node.next.prev = null;
+                    if (head != null) {
+                        head.prev = null;
                     }
                 } else {
                     node.prev.next = node.next;
                     if (node.next != null) {
-                        node.next.prev = node.prev;
+                        head.prev = node.prev;
                     }
                 }
             }
@@ -54,9 +55,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
     @Override
     public void add(Task task) {
-        remove(task);
-        historyList.linkLast(task);
-        history.put(task.getId(), historyList.tail.prev);
+        if (task != null) {
+            remove(task);
+            historyList.linkLast(task);
+        }
     }
 
     @Override
@@ -67,10 +69,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void remove(Task task) {
         if (task != null) {
-            if (history.containsKey(task.getId())) {
                 historyList.removeNode(history.get(task.getId()));
                 history.remove(task.getId());
-            }
         }
     }
 }
