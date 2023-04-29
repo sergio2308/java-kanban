@@ -22,16 +22,19 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Map<Integer, Epic> getEpics() {
+
         return epics;
     }
 
     @Override
     public Map<Integer, SubTask> getSubTasks() {
+
         return subTasks;
     }
 
     @Override
     public void removeTasks() {
+
         tasks.clear();
     }
     
@@ -48,19 +51,19 @@ public class InMemoryTaskManager implements TaskManager {
     
     @Override
     public Task getTaskById(int id) {
-        historyManager.addViewedTask(tasks.get(id));
+        historyManager.add(tasks.get(id));
         return tasks.get(id);
     }
     
     @Override
     public Epic getEpicById(int id) {
-        historyManager.addViewedTask(epics.get(id));
+        historyManager.add(epics.get(id));
         return epics.get(id);
     }
     
     @Override
     public SubTask getSubTaskById(int id) {
-        historyManager.addViewedTask(subTasks.get(id));
+        historyManager.add(subTasks.get(id));
         return subTasks.get(id);
     }
     
@@ -128,16 +131,19 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTaskById(int id) {
         tasks.remove(id);
+        historyManager.remove(tasks.get(id));
     }
     
     @Override
     public void removeEpicById(int id) {
         epics.remove(id);
+        historyManager.remove(tasks.get(id));
     }
     
     @Override
     public void removeSubTaskById(int id) {
         subTasks.remove(id);
+        historyManager.remove(tasks.get(id));
     }
     
     @Override

@@ -1,30 +1,76 @@
 package manager;
 
 import task.*;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final List<Task> viewedTasks = new ArrayList<>();
-    private static final int SIZE_OF_VIEWEDTASKS = 10;
 
-    @Override
-    public void addViewedTask(Task task) {
-        if (task != null) {
-            viewedTasks.add(task);
-            if (viewedTasks.size() > SIZE_OF_VIEWEDTASKS) {
-                viewedTasks.remove(0);
+    private final CustomLinkedList<Node> historyList = new CustomLinkedList<>();
+    private Map<Integer, Node> history = new HashMap<>();
+
+
+    class CustomLinkedList<T> {
+        public Node head;
+        public Node tail;
+
+        private void linkLast(Task task) {
+            final Node l = tail;
+            final Node newNode = new Node(l, task, null);
+            tail = newNode;
+            if (l == null)
+                head = newNode;
+            else
+                l.next = newNode;
+        }
+
+        private List<Task> getTasks() {
+            List<Task> tasks = new ArrayList<>();
+            Node current = head;
+            while (current != null) {
+                if (current.task != null) {
+                    tasks.add(current.task);
+                    current = current.next;
+                }
+            }
+            return tasks;
+        }
+
+        public void removeNode(Node node) {
+            if (node != null) {
+                if (node.equals(head)) {
+                    head = node.next;
+                    if (node.next != null) {
+                        node.next.prev = null;
+                    }
+                } else {
+                    node.prev.next = node.next;
+                    if (node.next != null) {
+                        node.next.prev = node.prev;
+                    }
+                }
             }
         }
     }
-
     @Override
-    public List<Task> getViewedTasks() {
-        return viewedTasks;
+    public void add(Task task) {
+        remove(task);
+        historyList.linkLast(task);
+        history.put(task.getId(), historyList.tail.prev);
     }
 
     @Override
-    public void remove(int id) {
-        viewedTasks.remove(id);
+    public List<Task> getHistory() {
+        return historyList.getTasks();
+    }
+
+    @Override
+    public void remove(Task task) {
+        if (task != null) {
+            if (history.containsKey(task.getId())) {
+                historyList.removeNode(history.get(task.getId()));
+                history.remove(task.getId());
+            }
+        }
     }
 }

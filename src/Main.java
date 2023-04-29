@@ -18,7 +18,7 @@ public class Main {
                 "Разработать новый алгоритм", new ArrayList<>()));
         manager.getEpicById(firstEpic.getId());
         Epic secondEpic = manager.addEpic(new Epic(id, "Выучить испанский",
-                "Выучить испаский язык на продвинутом уровне", new ArrayList<>()));
+                "Выучить испанский язык на продвинутом уровне", new ArrayList<>()));
         manager.getEpicById(secondEpic.getId());
         secondEpic.setStatus(Status.IN_PROGRESS);
         SubTask firstSubTask = manager.addSubTask(new SubTask(id, "Купить книгу",
@@ -54,17 +54,17 @@ public class Main {
         System.out.println("Task: " + manager.getTasks());
         System.out.println("Epics: " + manager.getEpics());
         System.out.println("SubTask: " + manager.getSubTasks());
-        System.out.println(manager.historyManager.getViewedTasks());
+        System.out.println(manager.historyManager.getHistory());
 
         manager.removeTaskById(firstTask.getId());
         manager.removeEpicById(firstEpic.getId());
-        System.out.println(manager.historyManager.getViewedTasks());
+        System.out.println(manager.historyManager.getHistory());
 
         System.out.println("Task: " + manager.getTasks());
         System.out.println("Epics: " + manager.getEpics());
         System.out.println("SubTask: " + manager.getSubTasks());
 
-        System.out.println(manager.historyManager.getViewedTasks());
+        System.out.println(manager.historyManager.getHistory());
 
     }
 }
