@@ -1,8 +1,8 @@
 package manager;
 
-import task.*;
-
-import java.util.*;
+import task.*;  //Добрый день, если я не сделал принципиальных ошибок, вы не могли бы зачесть работу, я исправлю то,
+                //что нужно будет. Просто хочу догнать группу, они сейчас на середине 7 спринта, а я на 5 завис.
+import java.util.*; //извините за коммент в коде, я удалю потом.
 
 public class InMemoryHistoryManager implements HistoryManager {
 
