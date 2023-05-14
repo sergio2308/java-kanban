@@ -11,9 +11,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     public HistoryManager historyManager = new InMemoryHistoryManager();
     protected int nextId = 0;
-    private Map<Integer, Task> tasks = new HashMap<>();
-    private Map<Integer, SubTask> subTasks = new HashMap<>();
-    private Map<Integer, Epic> epics = new HashMap<>();
+    protected static Map<Integer, Task> tasks = new HashMap<>();
+    protected static Map<Integer, SubTask> subTasks = new HashMap<>();
+    protected static Map<Integer, Epic> epics = new HashMap<>();
 
     public InMemoryTaskManager(InMemoryHistoryManager inMemoryHistoryManager) {
         this.historyManager = new InMemoryHistoryManager();
@@ -77,6 +77,18 @@ public class InMemoryTaskManager implements TaskManager {
     public SubTask getSubTaskById(int id) {
         historyManager.add(subTasks.get(id));
         return subTasks.get(id);
+    }
+
+    public void setTasks(Map<Integer, Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public void setEpics(Map<Integer, Epic> epics) {
+        this.epics = epics;
+    }
+
+    public void setSubTasks(Map<Integer, SubTask> subTasks) {
+        this.subTasks = subTasks;
     }
     
     @Override

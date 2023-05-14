@@ -9,8 +9,13 @@ public class Main {
     public static void main(String[] args) {
         Status status;
         int id = 0;
+
+        String path = System.getProperty("user.dir");
+        File pathFile = new File(path + File.separator + "resources", "tasks.csv");
+
+        FileBackedTasksManager fileBackedTasksManager = FileBackedTasksManager.loadFromFile(pathFile);
         InMemoryTaskManager manager = new InMemoryTaskManager();
-        Task task1 = manager.addTask(new Task(id, "Прочитать статью",
+        /*Task task1 = manager.addTask(new Task(id, "Прочитать статью",
                 "Прочитать статью на tproger"));
         manager.getTaskById(task1.getId());
         Task task2 = manager.addTask(new Task(id, "Купить тетрадь",
@@ -69,8 +74,12 @@ public class Main {
         System.out.println("SubTask: " + manager.getSubTasks());
 
         System.out.println(manager.historyManager.getHistory());
+*/
+        TaskManager taskManagerReload = new FileBackedTasksManager(new File("resources/task.csv"));
+        System.out.println("Task: " + manager.getTasks());
+        System.out.println("Epics: " + manager.getEpics());
+        System.out.println("SubTask: " + manager.getSubTasks());
 
-        TaskManager taskManagerReload = FileBackedTaskManager(new File("resources/task.csv"));
-
+        System.out.println(manager.historyManager.getHistory());
     }
 }
