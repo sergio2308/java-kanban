@@ -15,6 +15,10 @@ public class Main {
 
         FileBackedTasksManager fileBackedTasksManager = FileBackedTasksManager.loadFromFile(pathFile);
         InMemoryTaskManager manager = new InMemoryTaskManager();
+
+        //Разрешите, пожалуйста, пока оставить эти старые тесты в коде закомментированными
+        //Я отстаю от группы и хотел кое-что потом еще проверить, для себя
+
         /*Task task1 = manager.addTask(new Task(id, "Прочитать статью",
                 "Прочитать статью на tproger"));
         manager.getTaskById(task1.getId());
@@ -30,7 +34,6 @@ public class Main {
         epic2.setStatus(Status.IN_PROGRESS);
         manager.addSubTask(new SubTask(id, "Купить книгу",
                 "Купить книгу про алгоритмы", epic1.getId()));
-        
         SubTask subTask1 = manager.getSubTaskById(id);
                 SubTask subTask2 = manager.addSubTask(new SubTask(id, "Прочитать книгу",
                 "Прочитать книгу про алгоритмы", epic1.getId()));
@@ -38,11 +41,9 @@ public class Main {
         SubTask subTask3 = manager.addSubTask(new SubTask(id, "Выучить алфавит",
                 "Выучить испанский алфавит", epic2.getId()));
         manager.getSubTaskById(subTask3.getId());
-
         System.out.println("Task: " + manager.getTasks());
         System.out.println("Epics: " + manager.getEpics());
         System.out.println("SubTask: " + manager.getSubTasks());
-
         manager.updateTask(task1 = new Task(task1.getId(), "Прочитать статью",
                 "Прочитать статью на tproger"));
         manager.getTaskById(task1.getId());
@@ -59,20 +60,16 @@ public class Main {
         manager.updateSubTask(new SubTask(subTask3.getId(), "Выучить алфавит",
                 "Выучить испанский алфавит", epic2.getId()));
         subTask3.setStatus(Status.IN_PROGRESS);
-
         System.out.println("Task: " + manager.getTasks());
         System.out.println("Epics: " + manager.getEpics());
         System.out.println("SubTask: " + manager.getSubTasks());
         System.out.println(manager.historyManager.getHistory());
-
         manager.removeTaskById(task1.getId());
         manager.removeEpicById(epic1.getId());
         System.out.println(manager.historyManager.getHistory());
-
         System.out.println("Task: " + manager.getTasks());
         System.out.println("Epics: " + manager.getEpics());
         System.out.println("SubTask: " + manager.getSubTasks());
-
         System.out.println(manager.historyManager.getHistory());
 */
         TaskManager taskManagerReload = new FileBackedTasksManager(new File("resources/task.csv"));
