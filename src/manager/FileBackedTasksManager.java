@@ -17,53 +17,11 @@ import java.util.Map;
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
     private final File file;
-    private boolean load;
+    private boolean isLoad;
 
     public FileBackedTasksManager(File file) {
         super(new InMemoryHistoryManager());
         this.file = file;
-    }
-
-    public static void main(String[] args) {
-
-        String pathProjectDir = System.getProperty("user.dir");
-        File pathFile = new File(pathProjectDir + File.separator + "resources", "tasks.csv");
-
-        FileBackedTasksManager fileBackedTasksManager = FileBackedTasksManager.loadFromFile(pathFile);
-
-        Task task1 = new Task(1, "Обычная задача", "Описание обычной задачи", Status.NEW);
-        fileBackedTasksManager.addTask(task1);
-
-        Task task2 = new Task(2, "Обычная задача 2", "Описание 2", Status.NEW);
-        fileBackedTasksManager.addTask(task2);
-        ArrayList<Integer> sIds = new ArrayList<>();
-        sIds.add(4);
-        sIds.add(5);
-        sIds.add(6);
-        Epic epic1 = new Epic(3, "Эпическая задача", "Описание эпической задачи", sIds);
-        SubTask subTask1 = new SubTask(4, "Подзадача1", "Описание Подзадачи 1", 3);
-        SubTask subTask2 = new SubTask(5, "Подзадача2", "Описание Подзадачи 2",3);
-        SubTask subTask3 = new SubTask(6, "Подзадача3", "Описание Подзадачи 3", 3);
-        fileBackedTasksManager.addSubTask(subTask1);
-        fileBackedTasksManager.addSubTask(subTask2);
-        fileBackedTasksManager.addSubTask(subTask3);
-
-        ArrayList<Integer> sIds2 = new ArrayList<>();
-        sIds2.add(4);
-        sIds2.add(5);
-        Epic epic2 = new Epic(7, "Эпик 2", "Описание эпика2", sIds2);
-        fileBackedTasksManager.addEpic(epic2);
-
-        fileBackedTasksManager.getTaskById(task2.getId());
-        fileBackedTasksManager.getEpicById(epic2.getId());
-        fileBackedTasksManager.getSubTaskById(subTask2.getId());
-        fileBackedTasksManager.getEpicById(epic2.getId());
-
-        FileBackedTasksManager fileBackedTasksManager2 = FileBackedTasksManager.loadFromFile(pathFile);
-
-        fileBackedTasksManager2.getEpicById(epic1.getId());
-        fileBackedTasksManager2.getSubTaskById(subTask1.getId());
-        fileBackedTasksManager2.getTaskById(task1.getId());
     }
 
     public static FileBackedTasksManager loadFromFile(File file) {
@@ -89,8 +47,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                         tasksAll.put(task.getId(), task);
                         switch (task.getType()) {
                             case EPIC:
-                            epic = (Epic) task;
-                            epics.put(epic.getId(), epic);
+                                epic = (Epic) task;
+                                epics.put(epic.getId(), epic);
                             case SUBTASK:
                                 subTask = (SubTask) task;
                                 subTasks.put(subTask.getId(), subTask);
@@ -115,7 +73,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     }
                 }
         } catch (IOException e) {
-            throw new ManagerSaveException("Чтение данных из файла было прервано.");
+            throw new ManagerSaveException("Чтение данных из файла было прервано." + e.getMessage());
         }
         return fileBackedTasksManager;
     }
@@ -257,17 +215,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         for(Task task : getTasks()) {
             stringForFile.append(toString(task));
         }
-        for(Task epic : getEpics()) {
+        for(Task epic : getTasks()) {
             stringForFile.append(toString(epic));
         }
-        for(Task subTask : getSubTasks()) {
+        for(Task subTask : getTasks()) {
             stringForFile.append(toString(subTask));
         }
         stringForFile.append(historyToString(Managers.getDefaultHistory()));
         try (Writer fileWriter = new FileWriter(file)) {
             fileWriter.write(String.valueOf(stringForFile));
         } catch (IOException e) {
-            throw new ManagerSaveException("При cохранении в файл произошла ошибка.");
+            throw new ManagerSaveException("При cохранении в файл произошла ошибка." + e.getMessage());
         }
     }
 

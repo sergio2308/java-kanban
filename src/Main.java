@@ -15,7 +15,40 @@ public class Main {
 
         FileBackedTasksManager fileBackedTasksManager = FileBackedTasksManager.loadFromFile(pathFile);
         InMemoryTaskManager manager = new InMemoryTaskManager();
+        String pathProjectDir = System.getProperty("user.dir");
 
+        Task task1 = new Task(1, "Обычная задача", "Описание обычной задачи", Status.NEW);
+        fileBackedTasksManager.addTask(task1);
+        Task task2 = new Task(2, "Обычная задача 2", "Описание 2", Status.NEW);
+        fileBackedTasksManager.addTask(task2);
+
+        ArrayList<Integer> sIds = new ArrayList<>();
+        sIds.add(4);
+        sIds.add(5);
+        sIds.add(6);
+
+        Epic epic1 = new Epic(3, "Эпическая задача", "Описание эпической задачи", sIds);
+        SubTask subTask1 = new SubTask(4, "Подзадача1", "Описание Подзадачи 1", 3);
+        SubTask subTask2 = new SubTask(5, "Подзадача2", "Описание Подзадачи 2",3);
+        SubTask subTask3 = new SubTask(6, "Подзадача3", "Описание Подзадачи 3", 3);
+        fileBackedTasksManager.addSubTask(subTask1);
+        fileBackedTasksManager.addSubTask(subTask2);
+        fileBackedTasksManager.addSubTask(subTask3);
+        ArrayList<Integer> sIds2 = new ArrayList<>();
+        sIds2.add(4);
+        sIds2.add(5);
+
+        Epic epic2 = new Epic(7, "Эпик 2", "Описание эпика2", sIds2);
+        fileBackedTasksManager.addEpic(epic2);
+        fileBackedTasksManager.getTaskById(task2.getId());
+        fileBackedTasksManager.getEpicById(epic2.getId());
+        fileBackedTasksManager.getSubTaskById(subTask2.getId());
+        fileBackedTasksManager.getEpicById(epic2.getId());
+
+        FileBackedTasksManager fileBackedTasksManager2 = FileBackedTasksManager.loadFromFile(pathFile);
+        fileBackedTasksManager2.getEpicById(epic1.getId());
+        fileBackedTasksManager2.getSubTaskById(subTask1.getId());
+        fileBackedTasksManager2.getTaskById(task1.getId());
         //Разрешите, пожалуйста, пока оставить эти старые тесты в коде закомментированными
         //Я отстаю от группы и хотел кое-что потом еще проверить, для себя
 
@@ -74,8 +107,8 @@ public class Main {
 */
         TaskManager taskManagerReload = new FileBackedTasksManager(new File("resources/task.csv"));
         System.out.println("Task: " + manager.getTasks());
-        System.out.println("Epics: " + manager.getEpics());
-        System.out.println("SubTask: " + manager.getSubTasks());
+        System.out.println("Epics: " + manager.getTasks());
+        System.out.println("SubTask: " + manager.getTasks());
 
         System.out.println(manager.historyManager.getHistory());
     }

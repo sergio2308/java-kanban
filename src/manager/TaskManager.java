@@ -38,8 +38,4 @@ public interface TaskManager {
     void getEpicSubs(int id);
 
     List<Task> getTasks();
-
-    List<Task> getEpics();
-
-    List<Task> getSubTasks();
 }
