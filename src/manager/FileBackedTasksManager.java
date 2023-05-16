@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static task.TaskType.EPIC;
+import static task.TaskType.SUBTASK;
+
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
     private final File file;
@@ -38,46 +41,47 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 Map<Integer, Task> tasks = new HashMap<>();
                 Map<Integer, SubTask> subTasks = new HashMap<>();
                 Map<Integer, Task> tasksAll = new HashMap<>();
-                if (fileLines.length > 1) {
-                    Task task;
-                    Epic epic;
-                    SubTask subTask;
-                    while (i < fileLines.length && !fileLines[i].isBlank()) {
-                        task = fileBackedTasksManager.fromString(fileLines[i]);
-                        tasksAll.put(task.getId(), task);
-                        switch (task.getType()) {
-                            case EPIC:
-                                epic = (Epic) task;
-                                epics.put(epic.getId(), epic);
-                            case SUBTASK:
-                                subTask = (SubTask) task;
-                                subTasks.put(subTask.getId(), subTask);
-                                epic = epics.get(subTask.getEpicId());
-                                epic.addSubTask(subTask.getId());
-                                epics.put(epic.getId(), epic);
-                            case TASK:
-                                tasks.put(task.getId(), task);
-                            }
-                        }
-                        i++;
-                    }
-                    fileBackedTasksManager.setTasks(tasks);
-                    fileBackedTasksManager.setEpics(epics);
-                    fileBackedTasksManager.setSubTasks(subTasks);
-                    if (fileLines.length == (i + 2)) {
-                        List<Integer> historyViews = historyFromString(fileLines[i + 1]);
-                        for (int id : historyViews) {
-                            historyManager.add(tasksAll.get(id));
-                        }
-                        fileBackedTasksManager.save();
+                if (fileLines.length < 1) {
+                    throw new ManagerSaveException("Файл пуст!");
+                }
+                Task task;
+                Epic epic;
+                SubTask subTask;
+                while (i < fileLines.length && !fileLines[i].isBlank()) {
+                    task = fileBackedTasksManager.fromString(fileLines[i]);
+                    tasksAll.put(task.getId(), task);
+                    switch (task.getType()) {
+                        case EPIC:
+                            epic = (Epic) task;
+                            epics.put(epic.getId(), epic);
+                        case SUBTASK:
+                            subTask = (SubTask) task;
+                            subTasks.put(subTask.getId(), subTask);
+                            epic = epics.get(subTask.getEpicId());
+                            epic.addSubTask(subTask.getId());
+                            epics.put(epic.getId(), epic);
+                        case TASK:
+                            tasks.put(task.getId(), task);
                     }
                 }
+                    i++;
+                fileBackedTasksManager.setTasks(tasks);
+                fileBackedTasksManager.setEpics(epics);
+                fileBackedTasksManager.setSubTasks(subTasks);
+                if (fileLines.length == (i + 2)) {
+                    List<Integer> historyViews = historyFromString(fileLines[i + 1]);
+                    for (int id : historyViews) {
+                        historyManager.add(tasksAll.get(id));
+                    }
+                    fileBackedTasksManager.save();
+                }
+            }
         } catch (IOException e) {
-            throw new ManagerSaveException("Чтение данных из файла было прервано." + e.getMessage());
+            throw new ManagerSaveException("Чтение данных из файла было прервано:" + e.getMessage());
         }
         return fileBackedTasksManager;
     }
-    
+
     @Override
     public void addSubTask(SubTask subTask) {
         super.addSubTask(subTask);
@@ -171,11 +175,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     private String toString(Task task) {
         TaskType taskType;
         String idEpic = "";
-        if (task instanceof Epic) {
-            taskType = TaskType.EPIC;
+        if (task.getType() == EPIC) {
+            taskType = EPIC;
         } else {
-            if (task instanceof SubTask) {
-                taskType = TaskType.SUBTASK;
+            if (task.getType() == SUBTASK) {
+                taskType = SUBTASK;
                 idEpic += ((SubTask) task).getEpicId();
             } else {
                 taskType = TaskType.TASK;
@@ -225,7 +229,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         try (Writer fileWriter = new FileWriter(file)) {
             fileWriter.write(String.valueOf(stringForFile));
         } catch (IOException e) {
-            throw new ManagerSaveException("При cохранении в файл произошла ошибка." + e.getMessage());
+            throw new ManagerSaveException("При cохранении в файл произошла ошибка:" + e.getMessage());
         }
     }
 

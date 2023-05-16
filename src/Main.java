@@ -14,7 +14,7 @@ public class Main {
         File pathFile = new File(path + File.separator + "resources", "tasks.csv");
 
         FileBackedTasksManager fileBackedTasksManager = FileBackedTasksManager.loadFromFile(pathFile);
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+        //InMemoryTaskManager manager = new InMemoryTaskManager();
         String pathProjectDir = System.getProperty("user.dir");
 
         Task task1 = new Task(1, "Обычная задача", "Описание обычной задачи", Status.NEW);
@@ -104,12 +104,12 @@ public class Main {
         System.out.println("Epics: " + manager.getEpics());
         System.out.println("SubTask: " + manager.getSubTasks());
         System.out.println(manager.historyManager.getHistory());
-*/
+
         TaskManager taskManagerReload = new FileBackedTasksManager(new File("resources/task.csv"));
         System.out.println("Task: " + manager.getTasks());
         System.out.println("Epics: " + manager.getTasks());
         System.out.println("SubTask: " + manager.getTasks());
 
-        System.out.println(manager.historyManager.getHistory());
+        System.out.println(manager.historyManager.getHistory());*/
     }
 }
