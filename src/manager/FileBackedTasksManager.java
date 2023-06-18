@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -198,16 +199,25 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         String name = taskLines[2];
         Status status = Status.valueOf(taskLines[3]);
         String description = taskLines[4];
+        String startTime = taskLines[5];
+        Duration duration = Duration.ofMinutes(Integer.parseInt(taskLines[6]));
         switch (type) {
             case TASK:
                 task = new Task(id, name, description, status);
+                task.setStartTime(startTime);
+                task.setDuration(duration);
                 break;
             case EPIC:
                 task = new Epic(id, name, description, status, new ArrayList<Integer>());
+                task.setStartTime(startTime);
+                task.setDuration(duration);
+                ;
                 break;
             case SUBTASK:
                 int idEpic = Integer.parseInt(taskLines[5]);
                 task = new SubTask(id, name, description, status, idEpic);
+                task.setStartTime(startTime);
+                task.setDuration(duration);
                 break;
         }
         return task;
