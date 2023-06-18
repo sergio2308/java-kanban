@@ -13,12 +13,19 @@ public class Task {
     protected LocalDateTime startTime;
     protected Duration duration;
     protected LocalDateTime endTime;
-    final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy/mm:HH");
-    public Task(int id, String name, String description) {
+    protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy/mm:HH");
+
+    public Task(int id, String name, String description, LocalDateTime startTime, Duration duration, LocalDateTime endTime) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = Status.NEW;
+    }
+
+    public Task(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
     public void setStartTime(String startTime) {
@@ -101,11 +108,14 @@ public class Task {
         Task task = (Task) o;
         return id == task.id && Objects.equals(name, task.name)
                 && Objects.equals(description, task.description)
-                && Objects.equals(status, task.status);
+                && status == task.status
+                && Objects.equals(startTime, task.startTime)
+                && Objects.equals(duration, task.duration)
+                && Objects.equals(endTime, task.endTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, status);
+        return Objects.hash(id, name, description, status, startTime, duration, endTime);
     }
 }

@@ -1,5 +1,5 @@
 package manager;
-import exceptions.ManagerSaveException;
+import exceptions.IntersectionCheckException;
 import task.*;
 
 import java.util.*;
@@ -32,7 +32,7 @@ public class InMemoryTaskManager implements TaskManager {
             System.out.println();
             boolean check = newTask.getStartTime().isAfter(lastTask.getEndTime());
             if (!check) {
-                throw new ManagerSaveException("задача" + newTask.getStartTime() + "пересекается с " +
+                throw new IntersectionCheckException("задача " + newTask.getStartTime() + " пересекается с " +
                         "задачей " + lastTask.getStartTime());
             }
         }
