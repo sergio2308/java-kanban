@@ -70,8 +70,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void remove(Task task) {
         if (task != null) {
-                historyList.removeNode(history.get(task.getId()));
-                history.remove(task.getId());
+            historyList.removeNode(history.get(task.getId()));
+            history.remove(task.getId());
         }
     }
 }

@@ -2,6 +2,7 @@ import manager.*;
 import task.*;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Main {
@@ -9,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Status status;
         int id = 0;
+        String url = "http://localhost:8080";
 
         String path = System.getProperty("user.dir");
         File pathFile = new File(path + File.separator + "resources", "tasks.csv");
@@ -49,6 +51,11 @@ public class Main {
         fileBackedTasksManager2.getEpicById(epic1.getId());
         fileBackedTasksManager2.getSubTaskById(subTask1.getId());
         fileBackedTasksManager2.getTaskById(task1.getId());
+
+        HttpTaskManager httpTaskManager = new HttpTaskManager(url);
+        httpTaskManager.load();
+        httpTaskManager.save();
+
         //Разрешите, пожалуйста, пока оставить эти старые тесты в коде закомментированными
         //Я отстаю от группы и хотел кое-что потом еще проверить, для себя
 

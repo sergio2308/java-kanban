@@ -7,9 +7,9 @@ public interface TaskManager {
 
     void removeTasks();
 
-    void removeEpics(int id);
+    void removeEpics();
 
-    void removeSubTasks(int id);
+    void removeSubTasks();
 
     List<Task> getHistory();
 

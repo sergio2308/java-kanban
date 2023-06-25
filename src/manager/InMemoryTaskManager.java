@@ -24,7 +24,7 @@ public class InMemoryTaskManager implements TaskManager {
         validateTaskPriority();
     }
 
-    private void validateTaskPriority() {
+    void validateTaskPriority() {
         List<Task> listTask = new ArrayList<>(getPrioritizedTasks);
         for (int i = 1; i < listTask.size(); i++) {
             Task newTask = listTask.get(i);
@@ -53,13 +53,13 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void removeEpics(int id) {
+    public void removeEpics() {
         epics.clear();
         subTasks.clear();
     }
 
     @Override
-    public void removeSubTasks(int id) {
+    public void removeSubTasks() {
         subTasks.clear();
     }
 
@@ -161,7 +161,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    private void updateEpicStatus(Epic epic) {
+    public void updateEpicStatus(Epic epic) {
         if (epic.getSubTasksIds().isEmpty()) {
             epic.setStatus(Status.NEW);
             epics.put(epic.getId(), epic);

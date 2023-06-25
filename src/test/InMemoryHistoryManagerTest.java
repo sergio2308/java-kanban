@@ -56,4 +56,4 @@ class InMemoryHistoryManagerTest {
         historyManager.remove(task1);
         assertEquals(0, historyManager.getHistory().size(), "Неверный размер списка!");
     }
-    }
+}

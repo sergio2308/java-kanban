@@ -7,13 +7,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static task.TaskType.EPIC;
 import static task.TaskType.SUBTASK;
@@ -22,6 +20,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     private final File file;
     private boolean isLoad;
+    private String path;
 
     public FileBackedTasksManager(File file) {
         super(new InMemoryHistoryManager());
@@ -65,7 +64,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                             tasks.put(task.getId(), task);
                     }
                 }
-                    i++;
+                i++;
                 fileBackedTasksManager.setTasks(tasks);
                 fileBackedTasksManager.setEpics(epics);
                 fileBackedTasksManager.setSubTasks(subTasks);
@@ -96,14 +95,14 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeEpics(int id) {
-        super.removeEpics(id);
+    public void removeEpics() {
+        super.removeEpics();
         save();
     }
 
     @Override
-    public void removeSubTasks(int id) {
-        super.removeSubTasks(id);
+    public void removeSubTasks() {
+        super.removeSubTasks();
         save();
     }
 
@@ -123,6 +122,19 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void setEpics(Map<Integer, Epic> epics) {
         super.setEpics(epics);
         save();
+    }
+
+    private void addPriorityTask(Task task) {
+        getPrioritizedTasks.add(task);
+        validateTaskPriority();
+    }
+
+    public Collection<? extends Task> getEpics() {
+        return (Collection<? extends Task>) epics;
+    }
+
+    public Collection<? extends Task> getSubtasks() {
+        return (Collection<? extends Task>) subTasks;
     }
 
     @Override
@@ -147,6 +159,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void updateSubTask(SubTask subTask) {
         super.updateSubTask(subTask);
         save();
+    }
+
+    @Override
+    public void updateEpicStatus(Epic epic) {
+        super.updateEpicStatus(epic);
     }
 
     @Override

@@ -16,8 +16,6 @@ public class SubTask extends Task {
     public SubTask(int id, String name, String description, Status status, int idEpic) {
         super(id, name, description, status);
         this.epicId = epicId;
-        super.setStartTime(LocalDateTime.MIN.format(formatter));
-        super.setDuration(Duration.ZERO);
     }
 
     public void setStartTime(LocalDateTime startTime) {
@@ -61,7 +59,7 @@ public class SubTask extends Task {
     public String toString() {
         return "SubTask{" +
                 "epicId=" + epicId  +
-                getStartTime().format(formatter) +
+                getStartTime().format(FORMATTER) +
                 "," + getDuration().toMinutes() +
                 '}';
     }

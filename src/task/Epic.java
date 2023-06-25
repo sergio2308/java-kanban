@@ -16,7 +16,7 @@ public class Epic extends Task {
     public Epic(int id, String name, String description, Status status, ArrayList<Integer> subTasksIds) {
         super(id, name, description, status);
         this.subTasksIds = subTasksIds;
-        setStartTime(LocalDateTime.MIN.format(formatter));
+        setStartTime(LocalDateTime.MIN.format(FORMATTER));
         setDuration(Duration.ZERO);
     }
 
@@ -66,7 +66,7 @@ public class Epic extends Task {
     public String toString() {
         return "Epic{" +
                 "subTasksIds=" + subTasksIds  +
-                getStartTime().format(formatter) +
+                getStartTime().format(FORMATTER) +
                 "," + getDuration().toMinutes() +
                 '}';
     }
