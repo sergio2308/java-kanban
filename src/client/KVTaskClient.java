@@ -8,7 +8,7 @@ import java.net.http.HttpResponse;
 
 public class KVTaskClient {
 
-    public String API_TOKEN;
+    public String apiToken;
     private final String path;
 
     public KVTaskClient(String path) {
@@ -25,18 +25,18 @@ public class KVTaskClient {
         try {
             HttpResponse<String> response = httpClient.send(request, handler);
             if (response.statusCode() == 200) {
-                API_TOKEN = response.body();
+                apiToken = response.body();
                 System.out.println("API_TOKEN получен");
             } else {
                 System.out.println("API_TOKEN не получен, нужно зарегистрироваться повторно");
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("API_TOKEN не получен, нужно зарегистрироваться повторно");
+            System.out.println("API_TOKEN не получен, нужно зарегистрироваться повторно" + e.getMessage());
         }
     }
 
     public void put(String key, String json) {
-        URI uri = URI.create(path + "/save/" + key + "?API_TOKEN=" + API_TOKEN);
+        URI uri = URI.create(path + "/save/" + key + "?API_TOKEN=" + apiToken);
         HttpClient.newHttpClient().version();
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(json))
@@ -60,7 +60,7 @@ public class KVTaskClient {
     }
 
     public String load(String key) {
-        URI uri = URI.create(path + "/load/" + key + "?API_TOKEN=" + API_TOKEN);
+        URI uri = URI.create(path + "/load/" + key + "?API_TOKEN=" + apiToken);
         HttpClient.newHttpClient().version();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()

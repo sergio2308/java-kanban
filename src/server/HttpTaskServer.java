@@ -21,7 +21,6 @@ public class HttpTaskServer {
     public static final int PORT = 8080;
     private final String FILE = "/tasks";
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-    //public static final String PATH = "/tasks";
     public static final String[] RESOURCES = {"tasks", "task", "subtask", "epic", "history"};
     private HttpServer httpServer;
     private Gson gson;
@@ -186,6 +185,7 @@ public class HttpTaskServer {
         httpServer.stop(0);
         System.out.println("Остановка сервера на порту " + PORT);
     }
+
     public void start() {
         System.out.println("Запускаем сервер на порту " + PORT);
         System.out.println("Ссылка: http://localhost:" + PORT + FILE);
