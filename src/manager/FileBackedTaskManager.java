@@ -7,7 +7,7 @@ import tasks.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class FileBackedTaskManager extends InMemoryTaskManager{
+public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File file;
 
     public FileBackedTaskManager(File file) {
