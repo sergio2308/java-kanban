@@ -1,7 +1,7 @@
-import Manager.HistoryManager;          //Добрый день. Александр, спасибо. Я написал вам в Пачке, на всякий случай
-import Manager.InMemoryHistoryManager;  //продублирую тут. Не запушил я изменения сегодня, и позавчера, получается.
-import Manager.InMemoryTaskManager;     //Тесты ведь я писал, это  точно. Я удивился, что их нет) Все было Ок в IDEA.
-import Manager.Managers;                //Но я не проверил сам репозиторий, перед отправкой. Извините.
+import Manager.HistoryManager;          
+import Manager.InMemoryHistoryManager;
+import Manager.InMemoryTaskManager;
+import Manager.Managers;
 import Tasks.Epic;
 import Tasks.Status;
 import Tasks.SubTask;
