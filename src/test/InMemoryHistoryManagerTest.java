@@ -1,5 +1,5 @@
-import Manager.HistoryManager;
-import Manager.Managers;
+import manager.HistoryManager;
+import manager.Managers;
 import tasks.Status;
 import tasks.Task;
 import org.junit.jupiter.api.Test;

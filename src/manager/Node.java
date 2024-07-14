@@ -1,4 +1,4 @@
-package Manager;
+package manager;
 
 public class Node<Task> {
     public Task task;

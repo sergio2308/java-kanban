@@ -1,6 +1,6 @@
 package test;
 
-import Manager.InMemoryTaskManager;
+import manager.InMemoryTaskManager;
 import tasks.Epic;
 import tasks.Status;
 import tasks.SubTask;

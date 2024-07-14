@@ -1,7 +1,7 @@
-package Manager;
+package manager;
 
-import Exceptions.ManagerSaveException;
-import Exceptions.ManagerLoadException;
+import exceptions.ManagerSaveException;
+import exceptions.ManagerLoadException;
 import tasks.*;
 
 import java.io.*;
