@@ -2,13 +2,10 @@ package Manager;
 
 import Exceptions.ManagerSaveException;
 import Exceptions.ManagerLoadException;
-import Tasks.*;
+import tasks.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager{
     private final File file;

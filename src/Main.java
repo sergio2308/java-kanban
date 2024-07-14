@@ -1,11 +1,8 @@
-import Manager.HistoryManager;          
-import Manager.InMemoryHistoryManager;
 import Manager.InMemoryTaskManager;
-import Manager.Managers;
-import Tasks.Epic;
-import Tasks.Status;
-import Tasks.SubTask;
-import Tasks.Task;
+import tasks.Epic;
+import tasks.Status;
+import tasks.SubTask;
+import tasks.Task;
 
 public class Main {
     public static void main(String[] args) {

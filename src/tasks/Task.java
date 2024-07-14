@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 public class Task {
     protected String name;
@@ -80,7 +80,7 @@ public class Task {
                 ", taskType=" + taskType +
                 '}';
     }
-    
+
     public void setId(int newId) {
         id = newId;
     }
