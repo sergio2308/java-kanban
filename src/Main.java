@@ -14,6 +14,7 @@ public class Main {
         Task task1 = new Task("Покупка продуктов", "Помидоры, молоко, хлеб, чай", Status.NEW);
         Task task2 = new Task("Оправить посылку", "Сходить на почту и отправить посылку", Status.NEW);
         Epic epic1 = new Epic("Выучить испанский", "Выучить испанский язык");
+
 //        SubTask subTask1 = new SubTask("Словарь", "Купить словарь испанского языка", epic1.getId(),
 //                Status.NEW);
 //        SubTask subTask2 = new SubTask("Преподаватель", "Найти преподавателя испанского языка",
