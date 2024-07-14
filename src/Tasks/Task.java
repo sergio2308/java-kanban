@@ -1,7 +1,5 @@
 package Tasks;
 
-import java.util.Objects;
-
 public class Task {
     protected String name;
     protected String description;
@@ -66,7 +64,7 @@ public class Task {
         if (name != null) {
             hash = name.hashCode();
         }
-        if(id != 0) {
+        if (id != 0) {
             hash = hash + id;
         }
         return hash;
@@ -82,6 +80,7 @@ public class Task {
                 ", taskType=" + taskType +
                 '}';
     }
+    
     public void setId(int newId) {
         id = newId;
     }
