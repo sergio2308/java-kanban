@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
-    protected HashMap <Integer, Task> tasks;
+    protected HashMap<Integer, Task> tasks;
     protected HashMap<Integer, Epic> epics;
     protected HashMap<Integer, SubTask> subTasks;
     private static int idGenerator = 1;
@@ -60,7 +60,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskById(int id) {
-         historyManager.addHistory(tasks.get(id));
+        historyManager.addHistory(tasks.get(id));
         return tasks.get(id);
     }
 
