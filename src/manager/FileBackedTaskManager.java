@@ -15,7 +15,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         this.file = file;
     }
 
-    private void save() throws ManagerSaveException {
+    private void save() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
             bw.write("name,description,id,status,type,epic\n");
 
@@ -30,11 +30,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 bw.write(subTask.toString() + "\n");
             }
         } catch (IOException e) {
-            throw new ManagerSaveException();
+            throw new ManagerSaveException("Ошибка сохранения в файл.");
         }
     }
 
-    public FileBackedTaskManager loadFromFile(File file) throws ManagerLoadException {
+    public static FileBackedTaskManager loadFromFile(File file) {
         FileBackedTaskManager fm = new FileBackedTaskManager(file);
         Task task = null;
 
@@ -56,7 +56,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 }
             }
         } catch (IOException e) {
-            throw new ManagerLoadException();
+            throw new ManagerLoadException("Ошибка чтения из файла.");
         }
         return fm;
     }

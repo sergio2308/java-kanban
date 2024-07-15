@@ -1,7 +1,7 @@
 package exceptions;
 
 public class ManagerSaveException extends RuntimeException {
-    public ManagerSaveException() {
-        System.out.println("Ошибка сохранения файла.");
+    public ManagerSaveException(String message) {
+        super(message);
     }
 }
