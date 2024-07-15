@@ -48,7 +48,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 switch (task.getTaskType()) {
                     case TASK:
                         tasks.put(task.getId(), task);
-                    case  EPIC:
+                    case EPIC:
                         epics.put(task.getId(), (Epic) task);
                     case SUBTASK:
                         assert task instanceof SubTask;
@@ -87,7 +87,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         super.clearAllTasks();
         save();
     }
-    
+
     @Override
     public void clearAllEpics() {
         super.clearAllEpics();
