@@ -29,7 +29,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             for (SubTask subTask : getSubTasks()) {
                 bw.write(subTask.toString() + "\n");
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new ManagerSaveException();
         }
     }
@@ -38,7 +38,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         FileBackedTaskManager fm = new FileBackedTaskManager(file);
         Task task = null;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))){
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             br.readLine();
             while (br.ready()) {
                 String line = br.readLine();
@@ -61,7 +61,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return fm;
     }
 
-    public static Task fromString (String value) {
+    public static Task fromString(String value) {
         String[] elements = value.split(",");
         String name = elements[0];
         String description = elements[1];
@@ -87,6 +87,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         super.clearAllTasks();
         save();
     }
+    
     @Override
     public void clearAllEpics() {
         super.clearAllEpics();
