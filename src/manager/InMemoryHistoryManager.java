@@ -1,13 +1,13 @@
-package Manager;
+package manager;
 
-import Tasks.Task;
+import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InMemoryHistoryManager implements  HistoryManager{
+public class InMemoryHistoryManager implements  HistoryManager {
     private Node<Task> head;
     private Node<Task> tail;
     private final Map<Integer, Node<Task>> history = new HashMap<>();

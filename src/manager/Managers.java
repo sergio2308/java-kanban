@@ -1,4 +1,4 @@
-package Manager;
+package manager;
 
 public abstract class Managers {
     public static TaskManager getDefault() {

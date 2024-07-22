@@ -1,18 +1,18 @@
-package Manager;
+package manager;
 
-import Tasks.Epic;
-import Tasks.Status;
-import Tasks.SubTask;
-import Tasks.Task;
+import tasks.Epic;
+import tasks.Status;
+import tasks.SubTask;
+import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
-    private HashMap <Integer, Task> tasks;
-    private HashMap<Integer, Epic> epics;
-    private HashMap<Integer, SubTask> subTasks;
+    protected static HashMap<Integer, Task> tasks;
+    protected static HashMap<Integer, Epic> epics;
+    protected static HashMap<Integer, SubTask> subTasks;
     private static int idGenerator = 1;
     private final HistoryManager historyManager = Managers.getDefaultHistoryManager();
 
@@ -60,7 +60,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskById(int id) {
-         historyManager.addHistory(tasks.get(id));
+        historyManager.addHistory(tasks.get(id));
         return tasks.get(id);
     }
 
