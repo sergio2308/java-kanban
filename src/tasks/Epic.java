@@ -1,9 +1,14 @@
 package tasks;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Epic extends Task {
+    private LocalDateTime endTime;
     protected ArrayList<Integer> subTasksIds;
+    private HashMap<Integer, SubTask> subTasks;
 
     public Epic(String name, String description) {
         super(name, description);
@@ -14,6 +19,12 @@ public class Epic extends Task {
 
     public Epic(String name, String description, int id, Status status) {
         super();
+    }
+
+    public Epic(String name, String description, int id, Status status, HashMap<Integer, SubTask> subTasks) {
+        this.subTasks = subTasks;
+        this.startTime = subTasks.get(0).getStartTime();
+        this.endTime = subTasks.get(subTasks.size() - 1).getEndTime();
     }
 
     public void addSubTaskId(int id) {

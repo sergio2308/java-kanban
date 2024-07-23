@@ -6,6 +6,8 @@ import tasks.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File file;
@@ -68,12 +70,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         int id = Integer.parseInt(elements[2]);
         Status status = Status.valueOf(elements[3]);
         TaskType type = TaskType.valueOf(elements[4]);
+        LocalDateTime startTime = LocalDateTime.parse(elements[5]);
+        Duration duration = Duration.parse(elements[6]);
 
         switch (type) {
             case TASK:
-                return new Task(name, description, id, status);
+                return new Task(name, description, id, status, startTime, duration);
             case EPIC:
-                return new Epic(name, description, id, status);
+                return new Epic(name, description, id, status, subTasks);
             case SUBTASK:
                 int epicId = Integer.parseInt(elements[5]);
                 return new SubTask(name, description, id, status, epicId);
