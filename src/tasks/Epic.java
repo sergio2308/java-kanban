@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Epic extends Task {
-    private LocalDateTime endTime;
+
+    protected LocalDateTime endTime;
     protected ArrayList<Integer> subTasksIds;
     private HashMap<Integer, SubTask> subTasks;
+
 
     public Epic(String name, String description) {
         super(name, description);
@@ -20,18 +22,16 @@ public class Epic extends Task {
         super();
     }
 
-    public Epic(String name, String description, int id, Status status, HashMap<Integer, SubTask> subTasks) {
-        this.subTasks = subTasks;
-        this.startTime = subTasks.get(0).getStartTime();
-        this.endTime = subTasks.get(subTasks.size() - 1).getEndTime();
-    }
-
     public void addSubTaskId(int id) {
         subTasksIds.add(id);
     }
 
     public ArrayList<Integer> getSubTasksIds() {
         return subTasksIds;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     @Override
