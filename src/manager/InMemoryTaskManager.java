@@ -13,7 +13,6 @@ public class InMemoryTaskManager implements TaskManager {
     protected static HashMap<Integer, Task> tasks;
     protected static HashMap<Integer, Epic> epics;
     protected static HashMap<Integer, SubTask> subTasks;
-
     protected Set<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime));
     private static int idGenerator = 1;
     private final HistoryManager historyManager = Managers.getDefaultHistoryManager();
@@ -169,10 +168,10 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateSubTask(SubTask newSubTask, int epicId) {
         SubTask subTaskToUpdate = getSubTaskById(newSubTask.getId());
         prioritizedTasks.remove(subTaskToUpdate);
-        if(taskIntersectionsCheck(subTaskToUpdate)) {
-        subTaskToUpdate.setStatus(newSubTask.getStatus());
-        Epic epicToUpdate = getEpicById(epicId);
-        updateEpic(epicToUpdate);
+        if (taskIntersectionsCheck(subTaskToUpdate)) {
+            subTaskToUpdate.setStatus(newSubTask.getStatus());
+            Epic epicToUpdate = getEpicById(epicId);
+            updateEpic(epicToUpdate);
         }
     }
 
