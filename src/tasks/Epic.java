@@ -1,9 +1,15 @@
 package tasks;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Epic extends Task {
+
+    protected LocalDateTime endTime;
     protected ArrayList<Integer> subTasksIds;
+    private HashMap<Integer, SubTask> subTasks;
+
 
     public Epic(String name, String description) {
         super(name, description);
@@ -22,6 +28,10 @@ public class Epic extends Task {
 
     public ArrayList<Integer> getSubTasksIds() {
         return subTasksIds;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     @Override
